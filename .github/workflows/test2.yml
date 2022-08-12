@@ -1,6 +1,8 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    paths: ['.github/workflows/test2.yml']
 
 jobs:
   test:
