@@ -8,12 +8,12 @@ jobs:
     runs-on: macos-12
     name: A job to run test in FreeBSD
     steps:
-#     - run: |
-#         mv /usr/local/Homebrew/Library/Taps ~/work/Taps
-#         cp -rfv /usr/local/Homebrew ~/work/Homebrew || true
-#         mv ~/work/Taps /usr/local/Homebrew/Library/Taps
-#         mkdir -p ~/work/Homebrew/Library/Taps/homebrew
-#         cp -rfv /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core ~/work/Homebrew/Library/Taps/homebrew/homebrew-core || true
+    - run: |
+        mv /usr/local/Homebrew/Library/Taps ~/work/Taps
+        cp -rfv /usr/local/Homebrew ~/work/Homebrew || true
+        mv ~/work/Taps /usr/local/Homebrew/Library/Taps
+        mkdir -p ~/work/Homebrew/Library/Taps/homebrew
+        cp -rfv /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core ~/work/Homebrew/Library/Taps/homebrew/homebrew-core || true
 #     - uses: actions/checkout@v2
     - name: Test in FreeBSD
       id: test
@@ -23,9 +23,9 @@ jobs:
         # sync: sshfs
         prepare: |
           pkg install -y sudo bash curl git
-#           mkdir -p /opt
-#           mv /Users/runner/work/Homebrew /opt/homebrew
         run: |
+          mkdir -p /opt
+          mv /Users/runner/work/Homebrew /opt/homebrew
           NONINTERACTIVE=1 bash -c "$(curl -fsSL https://github.com/bsdbrew/install/raw/HEAD/install.sh)"
 #         run: |
 #           pwd
