@@ -18,7 +18,10 @@ jobs:
           pwd
           ls -lah
           whoami
-          env
           freebsd-version
+          echo ls -lah /
           ls -lah /
-          ls -lah /home
+          echo ls -lah /Users
+          ls -lah /Users
+          echo ls -lah /Users/runner
+          ls -lah /Users/runner
