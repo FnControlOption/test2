@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
-        cp -rv /usr/local/Homebrew ~/work/Homebrew
+        cp -rfv /usr/local/Homebrew ~/work/Homebrew
     - name: Test in FreeBSD
       id: test
       uses: vmactions/freebsd-vm@v0
