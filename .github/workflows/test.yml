@@ -24,27 +24,11 @@ jobs:
         key: rubygems-${{ steps.get-gems-hash.outputs.gems-hash }}
         restore-keys: rubygems-
 
-    - name: Copy Homebrew
+    - name: Clone Homebrew
       run: |
-        mv /usr/local/Homebrew/Library/Taps \
-           ~/work/Taps
-        mv /usr/local/Homebrew/Library/Homebrew/vendor/bundle/ruby \
-           ~/work/ruby
-
-        cp -rfv /usr/local/Homebrew \
-                ~/work/homebrew
-
-        mv ~/work/Taps \
-           /usr/local/Homebrew/Library/Taps
-        mv ~/work/ruby \
-           /usr/local/Homebrew/Library/Homebrew/vendor/bundle/ruby
-
+        git clone $(brew --repo) ~/work/homebrew
         mkdir -p ~/work/homebrew/Library/Taps/homebrew
-
-        cp -rfv /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core \
-                ~/work/homebrew/Library/Taps/homebrew/homebrew-core
-
-        true
+        git clone $(brew --repo homebrew/core) ~/work/homebrew/Library/Taps/homebrew/homebrew-core
 
     - name: Test in FreeBSD
       # id: test
