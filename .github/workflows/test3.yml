@@ -7,11 +7,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-12
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
+      - uses: vmactions/freebsd-vm@v0
+        with:
+          usesh: true
+          prepare: pkg install -y tmate
+          run: tmate
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Setup upterm session
+#         uses: lhotari/action-upterm@v1
 
 #   test:
 #     runs-on: ubuntu-latest
