@@ -14,6 +14,7 @@ jobs:
       uses: vmactions/freebsd-vm@v0
       with:
         usesh: true
+        sync: sshfs
         run: |
           pwd
           ls -lah
