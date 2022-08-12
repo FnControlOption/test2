@@ -21,6 +21,8 @@ jobs:
       with:
         usesh: true
         # sync: sshfs
+        prepare: |
+          pkg install -y sudo bash curl git
 #           mkdir -p /opt
 #           mv /Users/runner/work/Homebrew /opt/homebrew
         run: |
