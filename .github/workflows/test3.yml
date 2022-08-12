@@ -12,5 +12,8 @@ jobs:
     steps:
       - name: Step 1
         run: |
+          echo 1
           false
+          echo 2
           true
+          echo 3
