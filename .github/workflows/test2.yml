@@ -3,25 +3,20 @@ name: CI
 on:
   push:
     paths: ['.github/workflows/test2.yml']
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - name: freebsd
-            version: '13.0'
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: Test on ${{ matrix.os.name }}
+      - name: Test on FreeBSD
         uses: cross-platform-actions/action@v0.3.1
         with:
           environment_variables: GITHUB_ACTIONS
-          operating_system: ${{ matrix.os.name }}
-          version: ${{ matrix.os.version }}
+          operating_system: freebsd
+          version: '13.0'
           shell: bash
           run: |
             uname -a
