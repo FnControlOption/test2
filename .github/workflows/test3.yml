@@ -9,7 +9,9 @@ jobs:
   build:
     runs-on: macos-12
     steps:
-      - uses: mxschmitt/action-tmate@v3
+      - run: |
+          echo "Host *"               >> ~/.ssh/config
+          echo "    RequestTTY force" >> ~/.ssh/config
       - uses: vmactions/freebsd-vm@v0
         with:
           usesh: true
