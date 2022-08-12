@@ -27,9 +27,11 @@ jobs:
           mkdir -p /opt
           mv /Users/runner/work/Homebrew /opt/homebrew
           NONINTERACTIVE=1 bash -c "$(curl -fsSL https://github.com/bsdbrew/install/raw/HEAD/install.sh)"
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+          brew install --build-bottle zlib
+          brew test zlib
+          brew bottle --json --no-rebuild --root-url=https://ghcr.io/v2/bsdbrew/core
 #         run: |
-#           pwd
-#           ls -lah
 #           whoami
 #           freebsd-version
 #           echo ls -lah /
@@ -44,3 +46,6 @@ jobs:
 #           ls -lah /Users/runner/work/test2
 #           echo ls -lah ~/work
 #           ls -lah ~/work
+    - run: |
+        pwd
+        ls -lah
