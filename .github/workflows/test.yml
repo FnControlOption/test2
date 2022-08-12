@@ -29,8 +29,8 @@ jobs:
           NONINTERACTIVE=1 bash -c "$(curl -fsSL https://github.com/bsdbrew/install/raw/HEAD/install.sh)"
           eval "$(/opt/homebrew/bin/brew shellenv)"
           brew install --build-bottle zlib
-          brew test zlib
-          brew bottle --json --no-rebuild --root-url=https://ghcr.io/v2/bsdbrew/core
+          # brew test zlib
+          brew bottle zlib --json --no-rebuild --root-url=https://ghcr.io/v2/bsdbrew/core
 #         run: |
 #           whoami
 #           freebsd-version
