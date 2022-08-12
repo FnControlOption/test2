@@ -1,0 +1,16 @@
+
+name: Test3
+
+on:
+  push:
+    paths: ['.github/workflows/test3.yml']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test job
+    steps:
+      - name: Step 1
+        run: |
+          false
+          true
