@@ -42,6 +42,8 @@ jobs:
           pkg install -y sudo bash curl git
 
         run: |
+          set -eo pipefail
+
           echo "::group::Set up Homebrew"
           mkdir -p /opt
           mv ~/work/homebrew \
