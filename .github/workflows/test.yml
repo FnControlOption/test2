@@ -26,11 +26,25 @@ jobs:
 
     - name: Copy Homebrew
       run: |
-        mv /usr/local/Homebrew/Library/Taps ~/work/Taps
-        cp -rfv /usr/local/Homebrew ~/work/Homebrew || true
-        mv ~/work/Taps /usr/local/Homebrew/Library/Taps
-        mkdir -p ~/work/Homebrew/Library/Taps/homebrew
-        cp -rfv /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core ~/work/Homebrew/Library/Taps/homebrew/homebrew-core || true
+        mv /usr/local/Homebrew/Library/Taps \
+           ~/work/Taps
+        mv /usr/local/Homebrew/Library/Homebrew/vendor/bundle/ruby \
+           ~/work/ruby
+
+        cp -rfv /usr/local/Homebrew \
+                ~/work/homebrew
+
+        mv ~/work/Taps \
+           /usr/local/Homebrew/Library/Taps
+        mv ~/work/ruby \
+           /usr/local/Homebrew/Library/Homebrew/vendor/bundle/ruby
+
+        mkdir -p ~/work/homebrew/Library/Taps/homebrew
+
+        cp -rfv /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core \
+                ~/work/homebrew/Library/Taps/homebrew/homebrew-core
+
+        true
 
     - name: Test in FreeBSD
       # id: test
@@ -51,13 +65,12 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Install Homebrew Bundler RubyGems"
-          if [[ -d ~/work/rubygems  ]]
+          if [ ! -d ~/work/rubygems  ]
           then
-            cp -rfv ~/work/rubygems /opt/homebrew/Library/Homebrew/vendor/bundle/ruby
-          else
             brew install-bundler-gems
-            cp -rfv /opt/homebrew/Library/Homebrew/vendor/bundle/ruby ~/work/rubygems
+            mv /opt/homebrew/Library/Homebrew/vendor/bundle/ruby ~/work/rubygems
           fi
+          ln -sfn ~/work/rubygems /opt/homebrew/Library/Homebrew/vendor/bundle/ruby
           echo "::endgroup::"
 
           echo "::group::brew install"
