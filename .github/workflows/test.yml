@@ -8,10 +8,13 @@ jobs:
     runs-on: macos-12
     name: A job to run test in FreeBSD
     steps:
-    - uses: actions/checkout@v2
     - run: |
-        for tap in $(brew tap); do if [[ $tap != homebrew/core ]]; then brew untap $tap; fi; done
+        mv /usr/local/Homebrew/Library/Taps ~/work/Taps
         cp -rfv /usr/local/Homebrew ~/work/Homebrew
+        mv ~/work/Taps /usr/local/Homebrew/Library/Taps
+        mkdir -p ~/work/Homebrew/Library/Taps/homebrew
+        cp -rfv /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core ~/work/Homebrew/Library/Taps/homebrew/homebrew-core
+    - uses: actions/checkout@v2
     - name: Test in FreeBSD
       id: test
       uses: vmactions/freebsd-vm@v0
