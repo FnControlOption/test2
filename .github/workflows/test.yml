@@ -52,6 +52,10 @@ jobs:
           eval "$(/opt/homebrew/bin/brew shellenv)"
           echo "::endgroup::"
 
+          echo "::group::Install Homebrew Portable Ruby"
+          brew vendor-install ruby
+          echo "::endgroup::"
+
           if [ -d ~/work/rubygems ]
           then
             mv ~/work/rubygems \
