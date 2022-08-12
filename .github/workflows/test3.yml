@@ -13,12 +13,13 @@ jobs:
       - name: Step 1
         run: |
           echo 1
-          # false
+          false || true
           echo 2
           true
           echo 3
 
   test2:
+    if: false
     runs-on: macos-12
     name: Test job 2
     steps:
