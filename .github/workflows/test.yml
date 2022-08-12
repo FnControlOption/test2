@@ -13,7 +13,7 @@ jobs:
       id: test
       uses: vmactions/freebsd-vm@v0
       with:
-        usesh: true
+        # usesh: true
         sync: sshfs
         run: |
           pwd
@@ -26,3 +26,7 @@ jobs:
           ls -lah /Users
           echo ls -lah /Users/runner
           ls -lah /Users/runner
+          echo ls -lah /Users/runner/work
+          ls -lah /Users/runner/work
+          echo ls -lah /Users/runner/work/test2
+          ls -lah /Users/runner/work/test2
