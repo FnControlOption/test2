@@ -63,18 +63,20 @@ jobs:
           fi
 
           echo "::group::brew install"
-          brew install --build-bottle zlib
+          brew install --only-dependencies rust
+          brew install --build-bottle rust
           echo "::endgroup::"
 
           echo "::group::brew test"
-          brew test zlib
+          brew test rust
           echo "::endgroup::"
 
           echo "::group::brew bottle"
-          brew bottle zlib --json --no-rebuild --root-url=https://ghcr.io/v2/bsdbrew/core
+          brew bottle rust --json --no-rebuild --root-url=https://ghcr.io/v2/bsdbrew/core
           echo "::endgroup::"
 
     - name: Upload bottles as artifact
+      if: always()
       uses: actions/upload-artifact@main
       with:
         name: bottles
