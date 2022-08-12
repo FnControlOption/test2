@@ -9,12 +9,14 @@ jobs:
     name: A job to run test in FreeBSD
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        cp -rv /usr/local/Homebrew ~/work/Homebrew
     - name: Test in FreeBSD
       id: test
       uses: vmactions/freebsd-vm@v0
       with:
         usesh: true
-        sync: sshfs
+        # sync: sshfs
         run: |
           pwd
           ls -lah
@@ -30,5 +32,5 @@ jobs:
           ls -lah /Users/runner/work
           echo ls -lah /Users/runner/work/test2
           ls -lah /Users/runner/work/test2
-          echo ls -lah /work
-          ls -lah /work
+          echo ls -lah ~/work
+          ls -lah ~/work
