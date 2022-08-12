@@ -10,6 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: |
+        for tap in $(brew tap); do if [[ $tap != homebrew/core ]]; then brew untap $tap; fi; done
         cp -rfv /usr/local/Homebrew ~/work/Homebrew
     - name: Test in FreeBSD
       id: test
