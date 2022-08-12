@@ -10,6 +10,20 @@ jobs:
     steps:
     # - uses: actions/checkout@v2
 
+    - name: Get Homebrew Bundler RubyGems hash
+      id: get-gems-hash
+      run: |
+        hash="$(curl -fsSL https://github.com/bsdbrew/brew/raw/HEAD/Library/Homebrew/Gemfile.lock | shasum -a 256 | cut -f1 -d' ')"
+        echo "::set-output name=gems-hash::$hash"
+
+    - name: Cache Homebrew Bundler RubyGems
+      # id: cache
+      uses: actions/cache@v3
+      with:
+        path: ~/work/rubygems
+        key: rubygems-${{ steps.get-gems-hash.outputs.gems-hash }}
+        restore-keys: rubygems-
+
     - name: Copy Homebrew
       run: |
         mv /usr/local/Homebrew/Library/Taps ~/work/Taps
@@ -31,18 +45,28 @@ jobs:
         run: |
           echo "::group::Set up Homebrew"
           mkdir -p /opt
-          mv /Users/runner/work/Homebrew /opt/homebrew
+          mv ~/work/Homebrew /opt/homebrew
           NONINTERACTIVE=1 bash -c "$(curl -fsSL https://github.com/bsdbrew/install/raw/HEAD/install.sh)"
           eval "$(/opt/homebrew/bin/brew shellenv)"
+          echo "::endgroup::"
+
+          echo "::group::Install Homebrew Bundler RubyGems"
+          if [[ -d ~/work/rubygems  ]]
+          then
+            cp -rfv ~/work/rubygems /opt/homebrew/Library/Homebrew/vendor/bundle/ruby
+          else
+            brew install-bundler-gems
+            cp -rfv /opt/homebrew/Library/Homebrew/vendor/bundle/ruby ~/work/rubygems
+          fi
           echo "::endgroup::"
 
           echo "::group::brew install"
           brew install --build-bottle zlib
           echo "::endgroup::"
 
-          # echo "::group::brew test"
-          # brew test zlib
-          # echo "::endgroup::"
+          echo "::group::brew test"
+          brew test zlib
+          echo "::endgroup::"
 
           echo "::group::brew bottle"
           brew bottle zlib --json --no-rebuild --root-url=https://ghcr.io/v2/bsdbrew/core
