@@ -21,8 +21,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/work/rubygems
-        key: rubygems-${{ steps.get-gems-hash.outputs.gems-hash }}
-        restore-keys: rubygems-
+        key: gems-${{ steps.get-gems-hash.outputs.gems-hash }}
 
     - name: Clone Homebrew
       run: |
