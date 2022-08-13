@@ -19,11 +19,12 @@ jobs:
         echo "::set-output name=gems-hash::$hash"
 
     - name: Cache Homebrew Bundler RubyGems
-      # id: cache
+      id: cache
       uses: actions/cache@v3
       with:
         path: ~/work/rubygems
-        key: gems-${{ steps.get-gems-hash.outputs.gems-hash }}
+        key: rubygems-${{ steps.get-gems-hash.outputs.gems-hash }}
+        restore-keys: rubygems-
 
     - name: Clone Homebrew
       run: |
@@ -60,7 +61,10 @@ jobs:
           then
             mv ~/work/rubygems \
                /opt/homebrew/Library/Homebrew/vendor/bundle/ruby
-          else
+          end
+
+          if ${{ steps.cache.outputs.cache-hit != 'true' }}
+          then
             echo "::group::Install Homebrew Bundler RubyGems"
             brew install-bundler-gems
             mv /opt/homebrew/Library/Homebrew/vendor/bundle/ruby \
