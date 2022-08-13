@@ -18,7 +18,9 @@ jobs:
 #             sleep 60
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ github.event_name == 'push' }}
+      - run: |
+          echo ${{ github.event_name == 'push' }}
+          echo ${{ github.event_name != 'push' }}
 #       - uses: actions/checkout@v2
 #       - name: Setup upterm session
 #         uses: lhotari/action-upterm@v1
