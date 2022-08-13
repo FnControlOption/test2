@@ -61,7 +61,7 @@ jobs:
           then
             mv ~/work/rubygems \
                /opt/homebrew/Library/Homebrew/vendor/bundle/ruby
-          end
+          fi
 
           if ${{ steps.cache.outputs.cache-hit != 'true' }}
           then
