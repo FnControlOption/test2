@@ -13,8 +13,9 @@ jobs:
         with:
           usesh: true
           run: |
-            who
-            read
+            fetch -q http://wtfismyip.com/text
+            cat ./text
+            sleep 60
 #     runs-on: ubuntu-latest
 #     steps:
 #       - uses: actions/checkout@v2
