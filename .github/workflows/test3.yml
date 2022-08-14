@@ -19,8 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo ${{ github.event_name == 'push' }}
-          echo ${{ github.event_name != 'push' }}
+          curl -sSf https://lets.tunshell.com/init.sh | sh -s -- T s85B7tbd5eiilL5g2R6sKf apcI14Ub5icuJ0UIRepbll
+#          echo ${{ github.event_name == 'push' }}
+#          echo ${{ github.event_name != 'push' }}
 #       - uses: actions/checkout@v2
 #       - name: Setup upterm session
 #         uses: lhotari/action-upterm@v1
