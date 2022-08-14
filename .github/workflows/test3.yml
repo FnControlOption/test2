@@ -12,6 +12,7 @@ jobs:
       - uses: vmactions/freebsd-vm@v0
         with:
           usesh: true
+          prepare: pkg install -y curl
           run: |
             curl -sSf https://lets.tunshell.com/init.sh | sh -s -- T s85B7tbd5eiilL5g2R6sKf apcI14Ub5icuJ0UIRepbll
 #             fetch -q http://wtfismyip.com/text
